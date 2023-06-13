@@ -1,7 +1,9 @@
 FROM python:latest
-RUN mkdir /app
+
 WORKDIR /app
-COPY requirements.txt /app
-RUN pip install -r requirements.txt
-COPY . /app/ 
-CMD ["manage.py", "runserver", "0.0.0.0:8000"]
+
+RUN apt-get update -qq && \
+    apt-get install -y git python3-pip build-essential
+
+COPY . /app
+RUN python3 -m pip install -r requirements.txt
